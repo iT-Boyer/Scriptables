@@ -71,12 +71,12 @@ app.post("/sync", (req, res) => {
   console.log(`[*] 小组件源码（${_file['originalname']}）已同步，请打开编辑`)
   FILE_DATE = fs.statSync(WIDGET_FILE).mtimeMs
   // 尝试打开
-  let cmd = `code "${WIDGET_FILE}"`
+  let cmd = `emacsclient -n "${WIDGET_FILE}"`
   if (os.platform() === "win32") {
     cmd = `cmd.exe /c ${cmd}`
   } else if (os.platform() === "linux") {
     let shell = process.env["SHELL"]
-    cmd = `${shell} -c ${cmd}`
+    cmd = `${shell} -c '${cmd}'`
   } else {
     cmd = `"/Applications/Visual Studio Code.app/Contents/MacOS/Electron" "${WIDGET_FILE}"`
   }
